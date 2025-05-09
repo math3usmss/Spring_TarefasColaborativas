@@ -1,5 +1,7 @@
 package com.tarefasColaborativas.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,6 +31,14 @@ public class UsuarioService {
 		} catch (RuntimeException e) {
 			throw new RuntimeException();
 		}
+	}
+	
+	public Optional<Usuario> buscarPorEmail(String email) {
+		return usuarioRepository.findByEmail(email);
+	}
+	
+	public boolean verificaSenha(String senhaDigitada, String senhaCriptografada) {
+		return passwordEncoded.matches(senhaDigitada, senhaCriptografada);
 	}
 
 }
